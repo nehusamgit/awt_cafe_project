@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <title>Classy Cafe - Payment</title>
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo-klassy-cafe.css' %}?v=1.3">
+    <link rel="stylesheet" href="{% static 'css/owl-carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lightbox.css' %}">
+
+    <style>
+        .payment-card {
+            background: #fff;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+        .payment-option {
+            border: 2px solid #f1f1f1;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        .payment-option:hover, .payment-option.active {
+            border-color: #fb5849;
+            background: #fff5f4;
+        }
+        .payment-option i {
+            font-size: 30px;
+            margin-right: 20px;
+            color: #fb5849;
+        }
+        .btn-confirm {
+            background-color: #fb5849;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 18px;
+            border: none;
+            width: 100%;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        .btn-confirm:hover {
+            background-color: #d44336;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(251, 88, 73, 0.3);
+        }
+    </style>
+
+    </head>
+    
+    <body>
+    
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+    
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="{% url 'customer_home' %}" class="logo">
+                            <img src="{% static 'images/klassy-logo.png' %}" align="klassy cafe logo">
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <ul class="nav">
+                            <li class=""><a href="{% url 'customer_home' %}">Home</a></li>
+                            <li class=""><a href="{% url 'view_cart' %}">Cart</a></li>
+                            <li class=""><a href="/">Logout</a></li>
+                        </ul>        
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="top" style="padding-top: 150px; min-height: 80vh; background: #fdfdfd;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="payment-card">
+                        <div class="text-center mb-5">
+                            <h6 style="color: #fb5849; font-weight: 700;">Secure Checkout</h6>
+                            <h2 style="font-family: 'Dancing Script', cursive; font-size: 45px;">Complete Your Order</h2>
+                            <p class="text-muted">Total Amount to Pay: <strong style="color: #333; font-size: 24px;">Rs. {{ total }}</strong></p>
+                        </div>
+
+                        <div class="payment-methods">
+                            <div class="payment-option active">
+                                <i class="fa fa-credit-card"></i>
+                                <div>
+                                    <h5 style="margin-bottom: 5px; font-weight: 600;">Credit / Debit Card</h5>
+                                    <small class="text-muted">Pay securely with your Visa or Mastercard</small>
+                                </div>
+                            </div>
+                            <div class="payment-option">
+                                <i class="fa fa-paypal"></i>
+                                <div>
+                                    <h5 style="margin-bottom: 5px; font-weight: 600;">PayPal</h5>
+                                    <small class="text-muted">Use your PayPal account for instant payment</small>
+                                </div>
+                            </div>
+                            <div class="payment-option">
+                                <i class="fa fa-money"></i>
+                                <div>
+                                    <h5 style="margin-bottom: 5px; font-weight: 600;">Cash on Delivery</h5>
+                                    <small class="text-muted">Pay when your treats arrive at your door</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form action="{% url 'checkout' %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-confirm">Confirm Payment & Order <i class="fa fa-arrow-right"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-xs-12">
+                    <div class="right-text-content">
+                            <ul class="social-icons">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="logo">
+                        <a href="index.html"><img src="{% static 'images/white-logo.png' %}" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xs-12">
+                    <div class="left-text-content">
+                        <p>© Copyright Klassy Cafe Co.
+                        <br>Design: TemplateMo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery-2.1.0.min.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl-carousel.js' %}"></script>
+    <script src="{% static 'js/accordions.js' %}"></script>
+    <script src="{% static 'js/datepicker.js' %}"></script>
+    <script src="{% static 'js/scrollreveal.min.js' %}"></script>
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
+    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'js/imgfix.min.js' %}"></script> 
+    <script src="{% static 'js/slick.js' %}"></script> 
+    <script src="{% static 'js/lightbox.js' %}"></script> 
+    <script src="{% static 'js/isotope.js' %}"></script> 
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script>
+        $('.payment-option').click(function() {
+            $('.payment-option').removeClass('active');
+            $(this).addClass('active');
+        });
+    </script>
+  </body>
+</html>

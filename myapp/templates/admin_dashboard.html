@@ -1,0 +1,395 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Dashboard - Klassy Cafe</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo-klassy-cafe.css' %}">
+    <style>
+        :root {
+            --primary-color: #fb5849;
+            --dark-color: #585a5b;
+            --light-bg: #f8f9fa;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+        }
+        .admin-header {
+            background: #fff;
+            padding: 15px 0;
+            color: var(--dark-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .admin-header .logo img {
+            max-width: 120px;
+        }
+        .dashboard-container {
+            padding: 40px 0;
+        }
+        .stat-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            margin-bottom: 30px;
+            transition: 0.3s;
+            border-bottom: 4px solid var(--primary-color);
+        }
+        .stat-card i {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .stat-card h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0;
+        }
+        .stat-card p {
+            color: #666;
+            margin: 0;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        .section-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        .section-card h2 {
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+        }
+        .section-card h2 i {
+            margin-right: 15px;
+            color: var(--primary-color);
+        }
+        .table thead th {
+            background: var(--dark-color);
+            color: #fff;
+            border: none;
+            padding: 15px;
+        }
+        .btn-action {
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+        .btn-add {
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 25px;
+            padding: 10px 25px;
+            font-weight: 600;
+            border: none;
+        }
+        .btn-add:hover {
+            background: var(--dark-color);
+            color: #fff;
+        }
+        .modal-content {
+            border-radius: 15px;
+            padding: 20px;
+        }
+        .form-control {
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+        .img-preview {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="admin-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="logo">
+                    <img src="{% static 'images/klassy-logo.png' %}" alt="">
+                </div>
+                <div>
+                    <span class="mr-3">Welcome, Admin</span>
+                    <a href="/" class="btn btn-outline-dark btn-sm">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container dashboard-container">
+        
+        <!-- Stats Row -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <i class="fa fa-users"></i>
+                    <h3>{{ total_customers }}</h3>
+                    <p>Total Customers</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <i class="fa fa-coffee"></i>
+                    <h3>{{ total_items }}</h3>
+                    <p>Menu Items</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <i class="fa fa-list"></i>
+                    <h3>{{ total_categories }}</h3>
+                    <p>Categories</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Section -->
+        <div class="section-card">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2><i class="fa fa-tags"></i> Categories</h2>
+                <button class="btn-add" data-toggle="modal" data-target="#addCategoryModal">Add Category</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cat in categories %}
+                        <tr>
+                            <td>{{ cat.id }}</td>
+                            <td>{{ cat.name }}</td>
+                            <td>
+                                <a href="{% url 'edit_category' cat.id %}" class="btn btn-sm btn-info btn-action"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="{% url 'delete_category' cat.id %}" class="btn btn-sm btn-danger btn-action" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i> Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Menu Items Section -->
+        <div class="section-card">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2><i class="fa fa-cutlery"></i> Menu Items</h2>
+                <button class="btn-add" data-toggle="modal" data-target="#addMenuModal">Add Menu Item</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr>
+                            <td>
+                                {% if item.image %}
+                                <img src="{{ item.image.url }}" class="img-preview">
+                                {% else %}
+                                <span class="badge badge-secondary">No Image</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.category.name }}</td>
+                            <td>Rs.{{ item.price }}</td>
+                            <td>
+                                <a href="{% url 'edit_menu_item' item.id %}" class="btn btn-sm btn-info btn-action"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="{% url 'delete_menu_item' item.id %}" class="btn btn-sm btn-danger btn-action" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i> Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Duty Schedules Section -->
+        <div class="section-card">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2><i class="fa fa-calendar"></i> Staff Duty Schedules</h2>
+                <button class="btn-add" data-toggle="modal" data-target="#addDutyModal">Assign Duty</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Staff Name</th>
+                            <th>Day</th>
+                            <th>Shift / Timing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ds in duty_schedules %}
+                        <tr>
+                            <td>{{ ds.staff.name }} ({{ ds.staff.username }})</td>
+                            <td>{{ ds.day }}</td>
+                            <td>
+                                {% if ds.start_time|time:"H:i" == "08:00" %}
+                                    <span class="badge badge-info">Morning Shift</span>
+                                {% elif ds.start_time|time:"H:i" == "16:00" %}
+                                    <span class="badge badge-dark">Evening Shift</span>
+                                {% endif %}
+                                {{ ds.start_time|time:"H:i" }} - {{ ds.end_time|time:"H:i" }}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center text-muted">No duty schedules assigned yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Customers Section -->
+        <div class="section-card">
+            <h2><i class="fa fa-user-circle"></i> Registered Customers</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cust in customers %}
+                        <tr>
+                            <td>{{ cust.name }}</td>
+                            <td>{{ cust.username }}</td>
+                            <td>{{ cust.email }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modals -->
+    <div class="modal fade" id="addDutyModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Assign Duty Schedule</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form action="{% url 'assign_duty_schedule' %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <select name="staff" class="form-control" required>
+                            <option value="">Select Staff</option>
+                            {% for st in staffs %}
+                            <option value="{{ st.id }}">{{ st.name }} ({{ st.username }})</option>
+                            {% endfor %}
+                        </select>
+                        <select name="day" class="form-control" required>
+                            <option value="">Select Day</option>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                        </select>
+                        <select name="shift" class="form-control" required>
+                            <option value="">Select Shift</option>
+                            <option value="Morning">Morning (08:00 - 16:00)</option>
+                            <option value="Evening">Evening (16:00 - 23:59)</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn-add">Assign Duty</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addCategoryModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Category</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form action="{% url 'add_category' %}" method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <input type="text" name="name" class="form-control" placeholder="Category Name" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn-add">Save Category</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addMenuModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Menu Item</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <form action="{% url 'add_menu_item' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <input type="text" name="title" class="form-control" placeholder="Item Title" required>
+                        <textarea name="description" class="form-control" placeholder="Description" rows="3" required></textarea>
+                        <input type="number" step="0.01" name="price" class="form-control" placeholder="Price" required>
+                        <select name="category" class="form-control" required>
+                            <option value="">Select Category</option>
+                            {% for cat in categories %}
+                            <option value="{{ cat.id }}">{{ cat.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label>Item Image</label>
+                        <input type="file" name="image" class="form-control-file">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn-add">Save Menu Item</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'js/jquery-2.1.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

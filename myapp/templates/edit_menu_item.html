@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Edit Menu Item - Klassy Cafe</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        body { background: #f8f9fa; font-family: 'Poppins', sans-serif; padding: 50px 0; }
+        .edit-card { background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); max-width: 700px; margin: auto; }
+        .btn-save { background: #fb5849; color: #fff; border-radius: 25px; padding: 10px 30px; border: none; font-weight: 600; }
+        .btn-cancel { border-radius: 25px; padding: 10px 30px; }
+        .current-img { max-width: 150px; border-radius: 10px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="edit-card">
+            <h2 class="mb-4">Edit Menu Item</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" name="title" class="form-control" value="{{ item.title }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Price ($)</label>
+                            <input type="number" step="0.01" name="price" class="form-control" value="{{ item.price }}" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category" class="form-control" required>
+                        {% for cat in categories %}
+                        <option value="{{ cat.id }}" {% if cat.id == item.category.id %}selected{% endif %}>{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" class="form-control" rows="4" required>{{ item.description }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Image</label>
+                    <div>
+                        {% if item.image %}
+                        <img src="{{ item.image.url }}" class="current-img" alt="Current Image">
+                        <p class="small text-muted">Current image shown above. Upload a new one to replace it.</p>
+                        {% endif %}
+                        <input type="file" name="image" class="form-control-file">
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn-save">Update Item</button>
+                    <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary btn-cancel">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

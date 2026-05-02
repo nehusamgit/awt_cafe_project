@@ -1,0 +1,320 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Staff Dashboard - Klassy Cafe</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo-klassy-cafe.css' %}">
+    <style>
+        :root {
+            --primary-color: #fb5849;
+            --dark-color: #585a5b;
+            --light-bg: #f8f9fa;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+        }
+        .admin-header {
+            background: #fff;
+            padding: 15px 0;
+            color: var(--dark-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .admin-header .logo img {
+            max-width: 120px;
+        }
+        .dashboard-container {
+            padding: 40px 0;
+        }
+        .stat-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            margin-bottom: 30px;
+            transition: 0.3s;
+            border-bottom: 4px solid var(--primary-color);
+        }
+        .stat-card i {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        .stat-card h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0;
+        }
+        .stat-card p {
+            color: #666;
+            margin: 0;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        .section-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        .section-card h2 {
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+        }
+        .section-card h2 i {
+            margin-right: 15px;
+            color: var(--primary-color);
+        }
+        .table thead th {
+            background: var(--dark-color);
+            color: #fff;
+            border: none;
+            padding: 15px;
+        }
+        .img-preview {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="admin-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="logo">
+                    <img src="{% static 'images/klassy-logo.png' %}" alt="">
+                </div>
+                <div>
+                    <span class="mr-3">Welcome, {{ username }} (Staff)</span>
+                    <a href="{% url 'staff_logout' %}" class="btn btn-outline-dark btn-sm">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container dashboard-container">
+        
+        <!-- Stats Row -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <i class="fa fa-users"></i>
+                    <h3>{{ total_customers }}</h3>
+                    <p>Total Customers</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <i class="fa fa-coffee"></i>
+                    <h3>{{ total_items }}</h3>
+                    <p>Menu Items</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <i class="fa fa-list"></i>
+                    <h3>{{ total_categories }}</h3>
+                    <p>Categories</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Section -->
+        <div class="section-card">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2><i class="fa fa-tags"></i> Categories</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cat in categories %}
+                        <tr>
+                            <td>{{ cat.id }}</td>
+                            <td>{{ cat.name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Menu Items Section -->
+        <div class="section-card">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2><i class="fa fa-cutlery"></i> Menu Items</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr>
+                            <td>
+                                {% if item.image %}
+                                <img src="{{ item.image.url }}" class="img-preview">
+                                {% else %}
+                                <span class="badge badge-secondary">No Image</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.category.name }}</td>
+                            <td>Rs.{{ item.price }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Customers Section -->
+        <div class="section-card">
+            <h2><i class="fa fa-user-circle"></i> Registered Customers</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cust in customers %}
+                        <tr>
+                            <td>{{ cust.name }}</td>
+                            <td>{{ cust.username }}</td>
+                            <td>{{ cust.email }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Duty Schedule Section -->
+        <div class="section-card" style="border-left: 4px solid #17a2b8;">
+            <h2><i class="fa fa-calendar-check-o"></i> My Duty Schedule</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for schedule in duty_schedules %}
+                        <tr>
+                            <td><strong>{{ schedule.day }}</strong></td>
+                            <td>
+                                {% if schedule.start_time|time:"H:i" == "08:00" %}
+                                    <span class="badge badge-info">Morning</span>
+                                {% elif schedule.start_time|time:"H:i" == "16:00" %}
+                                    <span class="badge badge-dark">Evening</span>
+                                {% endif %}
+                                {{ schedule.start_time|time:"H:i" }}
+                            </td>
+                            <td>{{ schedule.end_time|time:"H:i" }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center text-muted">No duty scheduled.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Orders Section -->
+        <div class="section-card" style="border-left: 4px solid var(--primary-color);">
+            <h2><i class="fa fa-shopping-bag"></i> Customer Orders</h2>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total Amount</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>#{{ order.id }}</td>
+                            <td>{{ order.customer.name }}</td>
+                            <td>
+                                <ul style="list-style: none; padding: 0; margin: 0;">
+                                    {% for item in order.items.all %}
+                                    <li>{{ item.quantity }}x {{ item.item.title }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>Rs.{{ order.total_amount }}</td>
+                            <td>
+                                {% if order.status == 'Pending' %}
+                                <span class="badge badge-warning">{{ order.status }}</span>
+                                {% elif order.status == 'Accepted' %}
+                                <span class="badge badge-success">{{ order.status }}</span>
+                                {% else %}
+                                <span class="badge badge-secondary">{{ order.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ order.created_at|date:"M d, Y H:i" }}</td>
+                            <td>
+                                {% if order.status == 'Pending' %}
+                                <a href="{% url 'accept_order' order.id %}" class="btn btn-sm btn-success">Accept Order</a>
+                                {% else %}
+                                <button class="btn btn-sm btn-outline-secondary" disabled>Accepted</button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">No orders found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'js/jquery-2.1.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>
