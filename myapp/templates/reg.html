@@ -83,51 +83,44 @@ https://templatemo.com/tm-558-klassy-cafe
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="contact-form">
-                        <center>
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="contact-form" style="background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                         <form id="contact" action="" method="post">
                             {% csrf_token %}
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <h4>Register Here</h4>
+                                <div class="col-lg-12 text-center">
+                                    <h4 style="color: #2a2a2a; margin-bottom: 30px;">Create Your Account</h4>
                                     {% if error %}
-                                    <script>alert("{{ error }}");</script>
+                                    <div class="alert alert-danger" style="border-radius: 25px;">{{ error }}</div>
                                     {% endif %}
                                 </div>
                                 <div class="col-lg-12">
-                                    
-                                        <input name="name" type="text" placeholder="name" >
-                                    
-                                </div>
-
-                                <div class="col-lg-12">
-                                    
-                                        <input name="email" type="text" placeholder="email" >
-                                    
-                                </div>
-
-                                <div class="col-lg-12">
-                                    
-                                        <input name="uname" type="text" placeholder="username" >
-                                    
-                                </div>
-                               
-                                <div class="col-md-12">
-                                
-                                        <input name="pword" type="password"  placeholder="Password" >
-                                
-                                </div>
-                                
-                                <div class="col-lg-12">
                                     <fieldset>
-                                        <button type="submit" id="form-submit" class="main-button-icon">
-                                            Register</button>
+                                        <input name="name" type="text" placeholder="Full Name" required style="border-radius: 25px; padding: 12px 20px;">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12 mt-3">
+                                    <fieldset>
+                                        <input name="email" type="email" placeholder="Email Address" required style="border-radius: 25px; padding: 12px 20px;">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12 mt-3">
+                                    <fieldset>
+                                        <input name="uname" type="text" placeholder="Username" required style="border-radius: 25px; padding: 12px 20px;">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12 mt-3">
+                                    <fieldset>
+                                        <input name="pword" type="password" placeholder="Password" required style="border-radius: 25px; padding: 12px 20px;">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12 text-center mt-4">
+                                    <fieldset>
+                                        <button type="submit" id="form-submit" class="main-button-icon" style="width: 100%; border-radius: 25px;">Register Now</button>
                                     </fieldset>
                                 </div>
                             </div>
                         </form>
-                        </center>
                     </div>
                 </div>
             </div>
