@@ -64,5 +64,5 @@ urlpatterns = [
     path('accept_order/<int:order_id>/', views.accept_order, name='accept_order'),
     
     # For serving media files on Render (DEBUG=False)
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    path('media/<path:path>', serve, {'document_root': settings.MEDIA_ROOT}),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
