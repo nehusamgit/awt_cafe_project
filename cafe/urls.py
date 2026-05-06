@@ -24,6 +24,9 @@ from django.views.static import serve
 from django.urls import re_path
 
 urlpatterns = [
+    # Media serving at the top for maximum priority
+    path('media/<path:path>', serve, {'document_root': settings.MEDIA_ROOT}),
+    
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('l/',views.login,name="login"),
@@ -62,7 +65,4 @@ urlpatterns = [
     
     # Staff Dashboard extra routes
     path('accept_order/<int:order_id>/', views.accept_order, name='accept_order'),
-    
-    # For serving media files on Render (DEBUG=False)
-    path('media/<path:path>', serve, {'document_root': settings.MEDIA_ROOT}),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
