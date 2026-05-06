@@ -52,8 +52,8 @@ https://templatemo.com/tm-558-klassy-cafe
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
-                            <img src="{% static 'images/klassy-logo.png' %}" align="klassy cafe html template">
+                        <a href="{% url 'home' %}" class="logo">
+                            <img src="{% static 'images/klassy-logo.png' %}" align="klassy cafe logo">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
@@ -61,10 +61,10 @@ https://templatemo.com/tm-558-klassy-cafe
                             <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="#about">About</a></li>
                     
-                            <li class="scroll-to-section"><a href="/l/">Login</a></li>
-                            <li class="scroll-to-section"><a href="/r/">Register</a></li>
+                            <li class="scroll-to-section"><a href="{% url 'login' %}">Login</a></li>
+                            <li class="scroll-to-section"><a href="{% url 'reg' %}">Register</a></li>
                             
-                            <li class="scroll-to-section"><a href="/l/">Menu</a></li>
+                            <li class="scroll-to-section"><a href="#menu">Menu</a></li>
                              
                             
                             <li class="scroll-to-section"><a href="#reservation">Contact Us</a></li> 
@@ -90,7 +90,7 @@ https://templatemo.com/tm-558-klassy-cafe
                             <h4>ClassyCafe</h4>
                             <h6>THE BEST EXPERIENCE</h6>
                             <div class="main-white-button scroll-to-section">
-                                <a href="/l/">Login to Dine</a>
+                                <a href="{% url 'login' %}">Login to Dine</a>
                             </div>
                         </div>
                     </div>

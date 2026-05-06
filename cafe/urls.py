@@ -25,6 +25,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('l/',views.login,name="login"),
     path('r/', views.reg, name='reg'),
+    path('logout/', views.logout, name='logout'),
     path('customer_home/', views.customer_home, name='customer_home'),
 
     # Staff Dashboard Routes

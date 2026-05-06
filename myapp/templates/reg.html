@@ -37,20 +37,17 @@ https://templatemo.com/tm-558-klassy-cafe
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
-                            <img src="{% static 'images/klassy-logo.png' %}" align="klassy cafe html template">
+                        <a href="{% url 'home' %}" class="logo">
+                            <img src="{% static 'images/klassy-logo.png' %}" align="klassy cafe logo">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="/">Home</a></li>
-                            <li class="scroll-to-section"><a href="#about">About</a></li>
-                            <li class="scroll-to-section"><a href="/l/">Login</a></li>
-                            <li class="scroll-to-section"><a href="/r/">Register</a></li>
-                           	
-                        
-                            
-                            <li class="scroll-to-section"><a href="/l/">Menu</a></li>
+                            <li class="scroll-to-section"><a href="{% url 'home' %}">Home</a></li>
+                            <li class="scroll-to-section"><a href="/#about">About</a></li>
+                            <li class="scroll-to-section"><a href="{% url 'login' %}">Login</a></li>
+                            <li class="scroll-to-section"><a href="{% url 'reg' %}">Register</a></li>
+                            <li class="scroll-to-section"><a href="/#menu">Menu</a></li>
                              
                             <!-- <li class=""><a rel="sponsored" href="https://templatemo.com" target="_blank">External URL</a></li> -->
                             <li class="scroll-to-section"><a href="#reservation">Contact Us</a></li> 

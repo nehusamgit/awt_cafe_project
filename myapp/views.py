@@ -66,6 +66,13 @@ def login(request):
 
     return render(request, 'login.html')
 
+def logout(request):
+    if 'customer_id' in request.session:
+        del request.session['customer_id']
+    if 'customer_name' in request.session:
+        del request.session['customer_name']
+    return redirect('home')
+
 def customer_home(request):
     if 'customer_id' not in request.session:
         return redirect('login')
