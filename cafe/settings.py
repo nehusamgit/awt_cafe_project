@@ -86,6 +86,15 @@ DATABASES = {
     )
 }
 
+# Add SSL for TiDB/Cloud MySQL if we are in production
+if os.environ.get('DATABASE_URL'):
+    DATABASES['default']['OPTIONS'] = {
+        'ssl': {
+            'ca': '/etc/ssl/certs/ca-certificates.crt'
+        }
+    }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
