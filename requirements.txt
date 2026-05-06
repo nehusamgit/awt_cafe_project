@@ -3,3 +3,4 @@ gunicorn
 whitenoise
 pymysql
 dj-database-url
+Pillow
