@@ -58,6 +58,4 @@ urlpatterns = [
     
     # Staff Dashboard extra routes
     path('accept_order/<int:order_id>/', views.accept_order, name='accept_order'),
-    # Temporary route for admin creation
-    path('create-admin-secret-99/', views.create_admin_superuser),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
