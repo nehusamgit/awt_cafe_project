@@ -1,5 +1,15 @@
 from django.shortcuts import render, redirect
 from .models import Category, MenuItem, Customer, CartItem, Staff, Order, OrderItem, DutySchedule
+from django.contrib.auth.models import User
+from django.http import HttpResponse
+
+# Temporary view to create admin for presentation
+def create_admin_superuser(request):
+    if not User.objects.filter(username="admin").exists():
+        User.objects.create_superuser("admin", "admin@example.com", "admin123")
+        return HttpResponse("Admin 'admin' with password 'admin123' created successfully!")
+    else:
+        return HttpResponse("Admin already exists.")
 
 # Create your views here.
 def home(request):
