@@ -99,7 +99,7 @@ else:
         'HOST': 'gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com',
         'PORT': '4000',
         'OPTIONS': {
-            'ssl': {'ca': '/etc/ssl/certs/ca-certificates.crt'} 
+            'ssl': {'ca': '/etc/ssl/certs/ca-certificates.crt'},
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'",
         }
     }
