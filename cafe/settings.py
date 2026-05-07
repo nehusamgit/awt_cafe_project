@@ -95,7 +95,7 @@ else:
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cafe_project', 
         'USER': '2hV2AfSxZ33EN3U.root',
-        'PASSWORD': 'VsGrcwzxHelmvQX3',
+        'PASSWORD': 'OkxDeqdcIG8iRXMz',
         'HOST': 'gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com',
         'PORT': '4000',
         'OPTIONS': {
