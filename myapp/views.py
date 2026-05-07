@@ -44,26 +44,27 @@ def login(request):
         # Check for Admin credentials first
         if uname == 'admin' and pword == 'admin123':
             request.session['is_admin'] = True
+            request.session.save()
             return redirect('admin_dashboard')
 
         # Check for Staff
-        try:
-            staff = Staff.objects.get(username=uname, password=pword)
+        staff = Staff.objects.filter(username=uname, password=pword).first()
+        if staff:
             request.session['staff_id'] = staff.id
             request.session['staff_name'] = staff.name
+            request.session.save()
             return redirect('staff_dashboard')
-        except Staff.DoesNotExist:
-            pass
 
         # Otherwise check for Customer
-        try:
-            customer = Customer.objects.get(username=uname, password=pword)
+        customer = Customer.objects.filter(username=uname, password=pword).first()
+        if customer:
             request.session['customer_id'] = customer.id
             request.session['customer_name'] = customer.name
+            request.session.save()
             return redirect('customer_home')
-        except Customer.DoesNotExist:
-            error = "Invalid Username or Password"
-            return render(request, 'login.html', {'error': error})
+            
+        error = "Invalid Username or Password"
+        return render(request, 'login.html', {'error': error})
 
     return render(request, 'login.html')
 
@@ -76,6 +77,12 @@ def logout(request):
 
 def customer_home(request):
     if 'customer_id' not in request.session:
+        return redirect('login')
+    
+    try:
+        customer = Customer.objects.get(id=request.session['customer_id'])
+    except Customer.DoesNotExist:
+        del request.session['customer_id']
         return redirect('login')
     
     categories = Category.objects.all()
@@ -332,7 +339,15 @@ def staff_dashboard(request):
     items = MenuItem.objects.all()
     customers = Customer.objects.all()
     orders = Order.objects.all().order_by('-created_at')
-    staff = Staff.objects.get(id=request.session['staff_id'])
+    
+    try:
+        staff = Staff.objects.get(id=request.session['staff_id'])
+    except Staff.DoesNotExist:
+        del request.session['staff_id']
+        if 'staff_name' in request.session:
+            del request.session['staff_name']
+        return redirect('login')
+        
     duty_schedules = DutySchedule.objects.filter(staff=staff)
     
     context = {
