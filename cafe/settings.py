@@ -92,18 +92,12 @@ if os.environ.get('DATABASE_URL'):
 else:
     DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cafe_project', 
-        'USER': '2hV2AfSxZ33EN3U.root',
-        'PASSWORD': 'OkxDeqdcIG8iRXMz',
-        'HOST': '74.220.52.250', # Use the IP from your error log
-        'PORT': '4000',
-        'OPTIONS': {
-           'ssl': {'ca': '/etc/ssl/certs/ca-certificates.crt'},
-           'connect_timeout': 10, # Added this to give it more time
-}
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
+        
+    
 
 
 if os.environ.get('DATABASE_URL'):
