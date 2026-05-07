@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import os
 import dj_database_url
 import pymysql
+pymysql.version_info = (1, 4, 6, 'final', 0) # Add this exact line
 pymysql.install_as_MySQLdb()
 
 
@@ -99,6 +100,7 @@ else:
         'PORT': '4000',
         'OPTIONS': {
             'ssl': {'ca': '/etc/ssl/certs/ca-certificates.crt'} 
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'",
         }
     }
 }
