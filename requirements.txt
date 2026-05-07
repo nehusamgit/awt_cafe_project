@@ -4,3 +4,4 @@ whitenoise
 pymysql
 dj-database-url
 Pillow
+mysqlclient==2.2.4
