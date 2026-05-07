@@ -96,11 +96,12 @@ else:
         'NAME': 'cafe_project', 
         'USER': '2hV2AfSxZ33EN3U.root',
         'PASSWORD': 'OkxDeqdcIG8iRXMz',
-        'HOST': 'gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com',
-        'PORT': '4000',
-        'OPTIONS': {
-            'ssl': {'ca': '/etc/ssl/certs/ca-certificates.crt'},
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'",
+        'HOST': '74.220.52.250', # Use the IP from your error log
+'PORT': '4000',
+'OPTIONS': {
+    'ssl': {'ca': '/etc/ssl/certs/ca-certificates.crt'},
+    'connect_timeout': 10, # Added this to give it more time
+}
         }
     }
 }
