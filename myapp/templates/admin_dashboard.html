@@ -159,6 +159,20 @@
             </div>
         </div>
 
+        <!-- Quick Actions Row -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="section-card" style="padding: 20px;">
+                    <div class="d-flex align-items-center">
+                        <h5 class="mb-0 mr-4 text-muted"><i class="fa fa-bolt"></i> Quick Actions:</h5>
+                        <a href="{% url 'staff_reg' %}" class="btn-add mr-2" style="text-decoration: none;"><i class="fa fa-user-plus"></i> Register New Staff</a>
+                        <button class="btn-add mr-2" data-toggle="modal" data-target="#addCategoryModal"><i class="fa fa-plus-circle"></i> Add Category</button>
+                        <button class="btn-add" data-toggle="modal" data-target="#addMenuModal"><i class="fa fa-plus"></i> Add Menu Item</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Categories Section -->
         <div class="section-card">
             <div class="d-flex justify-content-between align-items-center">
