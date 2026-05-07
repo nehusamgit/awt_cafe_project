@@ -37,6 +37,7 @@ def reg(request):
 
 def login(request):
     if request.method == 'POST':
+        request.session.flush()
         uname = request.POST.get('uname')
         pword = request.POST.get('pword')
 
