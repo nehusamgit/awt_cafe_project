@@ -1,5 +1,15 @@
 from django.shortcuts import render, redirect
 from .models import Category, MenuItem, Customer, CartItem, Staff, Order, OrderItem, DutySchedule
+from django.contrib.auth.models import User
+from django.http import HttpResponse
+
+def force_admin_access(request):
+    user, created = User.objects.get_or_create(username='admin')
+    user.set_password('Admin12345') # You can change this
+    user.is_superuser = True
+    user.is_staff = True
+    user.save()
+    return HttpResponse("Admin access fixed! Username: admin, Password: Admin12345")
 
 # Create your views here.
 def home(request):
