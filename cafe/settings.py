@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import os
 import dj_database_url
 import pymysql
+# Add this exact line below
 pymysql.version_info = (2, 2, 1, 'final', 0) 
 pymysql.install_as_MySQLdb()
 
