@@ -235,7 +235,10 @@
         <div class="section-card">
             <div class="d-flex justify-content-between align-items-center">
                 <h2><i class="fa fa-calendar"></i> Staff Duty Schedules</h2>
-                <button class="btn-add" data-toggle="modal" data-target="#addDutyModal">Assign Duty</button>
+                <div>
+                    <a href="{% url 'staff_reg' %}" class="btn-add mr-2" style="text-decoration: none;">Register Staff</a>
+                    <button class="btn-add" data-toggle="modal" data-target="#addDutyModal">Assign Duty</button>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="table">

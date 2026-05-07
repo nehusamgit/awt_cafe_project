@@ -356,3 +356,23 @@ def accept_order(request, order_id):
     order.save()
     
     return redirect('staff_dashboard')
+def staff_reg(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        uname = request.POST.get('uname')
+        pword = request.POST.get('pword')
+
+        if Staff.objects.filter(username=uname).exists():
+            error = "Username already exists"
+            return render(request, 'staff_reg.html', {'error': error})
+        
+        if Staff.objects.filter(email=email).exists():
+            error = "Email already exists"
+            return render(request, 'staff_reg.html', {'error': error})
+
+        staff = Staff(name=name, email=email, username=uname, password=pword)
+        staff.save()
+        return redirect('admin_dashboard')
+
+    return render(request, 'staff_reg.html')

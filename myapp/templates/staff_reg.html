@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Staff Registration - Klassy Cafe</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .reg-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        .reg-card h2 {
+            font-weight: 700;
+            color: #585a5b;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .form-control {
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+        }
+        .btn-reg {
+            background: #fb5849;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            width: 100%;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-reg:hover {
+            background: #585a5b;
+            color: #fff;
+        }
+        .error-msg {
+            color: #fb5849;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="reg-card">
+        <h2>Add New Staff</h2>
+        {% if error %}
+        <p class="error-msg">{{ error }}</p>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+            <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+            <input type="text" name="uname" class="form-control" placeholder="Username" required>
+            <input type="password" name="pword" class="form-control" placeholder="Password" required>
+            <button type="submit" class="btn-reg">Register Staff</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="{% url 'admin_dashboard' %}" class="text-muted">Back to Dashboard</a>
+        </div>
+    </div>
+
+</body>
+</html>
