@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure--r8b7tetf8%j@xkjh_543
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']  # For now, allow all. You can restrict this later to your-app.onrender.com
+ALLOWED_HOSTS = ['awt-cafe-project.onrender.com', 'localhost', '127.0.0.1'] 
 
 
 # Application definition
@@ -90,17 +90,19 @@ if os.environ.get('DATABASE_URL'):
     }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'cafe_db',
-            'USER': 'root',
-            'PASSWORD': 'root',
-            'HOST': 'localhost',
-            'PORT': '3306',
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'cafe_project', 
+        'USER': '2hV2AfSxZ33EN3U.root',
+        'PASSWORD': 'VsGrcwzxHelmvQX3',
+        'HOST': 'gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com',
+        'PORT': '4000',
+        'OPTIONS': {
+            'ssl': {'ca': '/etc/ssl/certs/ca-certificates.crt'} 
         }
     }
+}
 
-# Add SSL for TiDB/Cloud MySQL if we are in production
 if os.environ.get('DATABASE_URL'):
     DATABASES['default']['OPTIONS'] = {
         'ssl': {
