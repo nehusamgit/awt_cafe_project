@@ -289,7 +289,7 @@ def remove_from_cart(request, item_id):
         
     return redirect('view_cart')
 
-def payment_page(request):
+def payment(request):
     if 'customer_id' not in request.session:
         return redirect('login')
     
