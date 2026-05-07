@@ -97,14 +97,14 @@ else:
         'USER': '2hV2AfSxZ33EN3U.root',
         'PASSWORD': 'OkxDeqdcIG8iRXMz',
         'HOST': '74.220.52.250', # Use the IP from your error log
-'PORT': '4000',
-'OPTIONS': {
-    'ssl': {'ca': '/etc/ssl/certs/ca-certificates.crt'},
-    'connect_timeout': 10, # Added this to give it more time
+        'PORT': '4000',
+        'OPTIONS': {
+           'ssl': {'ca': '/etc/ssl/certs/ca-certificates.crt'},
+           'connect_timeout': 10, # Added this to give it more time
 }
         }
     }
-}
+
 
 if os.environ.get('DATABASE_URL'):
     DATABASES['default']['OPTIONS'] = {
