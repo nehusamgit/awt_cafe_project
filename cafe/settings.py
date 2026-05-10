@@ -84,12 +84,14 @@ WSGI_APPLICATION = 'cafe.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 if os.environ.get('DATABASE_URL'):
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=os.environ.get('DATABASE_URL'),
-            conn_max_age=600,
-        )
-    }
+    # settings.py around line 87
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
+    )
+}
     # If the remote database is MySQL (like TiDB), add SSL configuration
     if DATABASES['default']['ENGINE'] == 'django.db.backends.mysql':
         DATABASES['default']['OPTIONS'] = {
@@ -103,17 +105,20 @@ else:
             #'ENGINE': 'django.db.backends.sqlite3',
             #'NAME': BASE_DIR / 'db.sqlite3',
 
-            'default': {
+            DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test', # Usually 'test' or 'defaultdb' in TiDB
-        'USER': 'your_user_ends_in_root',
-        'PASSWORD': 'your_tidb_password',
-        'HOST': 'your_tidb_endpoint_url',
+        'NAME': 'cafe_project',
+        'USER': '2hV2AfSxZ33EN3U.root',
+        'PASSWORD': 'ZP0vbnEwRCqMxTbi',
+        'HOST': 'gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com',
         'PORT': '4000',
         'OPTIONS': {
-            'ssl': {'ca': '/etc/ssl/certs/ca-certificates.crt'} 
+            'ssl': {'ca': '/etc/ssl/certs/ca-certificates.crt'},
+            'charset': 'utf8mb4',
         }
     }
+}
         }
     
 # Password validation
