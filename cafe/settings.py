@@ -20,11 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 import os
+import dj_database_url
 import pymysql
-pymysql.install_as_MySQLdb()
 # Add this exact line below
 pymysql.version_info = (2, 2, 1, 'final', 0) 
 pymysql.install_as_MySQLdb()
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure--r8b7tetf8%j@xkjh_543&p$)4f)8&3)(0jnkvdcmahes=yeh5')
