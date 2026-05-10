@@ -20,8 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 import os
-import dj_database_url
 import pymysql
+pymysql.install_as_MySQLdb()
 # Add this exact line below
 pymysql.version_info = (2, 2, 1, 'final', 0) 
 pymysql.install_as_MySQLdb()
@@ -98,11 +98,23 @@ if os.environ.get('DATABASE_URL'):
         }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+        #'default': {
+            #'ENGINE': 'django.db.backends.sqlite3',
+            #'NAME': BASE_DIR / 'db.sqlite3',
+
+            'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'test', # Usually 'test' or 'defaultdb' in TiDB
+        'USER': 'your_user_ends_in_root',
+        'PASSWORD': 'your_tidb_password',
+        'HOST': 'your_tidb_endpoint_url',
+        'PORT': '4000',
+        'OPTIONS': {
+            'ssl': {'ca': '/etc/ssl/certs/ca-certificates.crt'} 
         }
     }
+        }
+    
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
