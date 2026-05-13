@@ -178,3 +178,7 @@ STORAGES = {
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RAZOR_KEY_ID='rzp_test_SonWL2rloKbe0A'
+RAZOR_KEY_SECRET='dHzpoITy11DVazdSdQPrJssY'
+
